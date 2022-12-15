@@ -17,10 +17,9 @@ _pad = 0
 class DataFeeder(threading.Thread):
   '''Feeds batches of data into a queue on a background thread.'''
 
-  def __init__(self, coordinator, metadata_filename, hparams):
+  def __init__(self, coordinator, metadata_filename):
     super(DataFeeder, self).__init__()
     self._coord = coordinator
-    self._hparams = hparams
     self._cleaner_names = [x.strip() for x in hparams.cleaners.split(',')]
     self._offset = 0
 
