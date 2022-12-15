@@ -2,7 +2,6 @@ from concurrent.futures import ProcessPoolExecutor
 from functools import partial
 import numpy as np
 import os
-from hparams import hparams
 from util import audio
 
 
@@ -41,10 +40,10 @@ def _process_utterance(out_dir, index, wav_path, labels_path, text):
   # Load the wav file and trim silence from the ends:
   wav = audio.load_wav(wav_path)
   start_offset, end_offset = _parse_labels(labels_path)
-  start = int(start_offset * hparams.sample_rate)
-  end = int(end_offset * hparams.sample_rate) if end_offset is not None else -1
+  start = int(start_offset * 20000)
+  end = int(end_offset * 20000) if end_offset is not None else -1
   wav = wav[start:end]
-  max_samples = _max_out_length * hparams.frame_shift_ms / 1000 * hparams.sample_rate
+  max_samples = _max_out_length * 12.5 / 1000 * 20000
   if len(wav) > max_samples:
     return None
   spectrogram = audio.spectrogram(wav).astype(np.float32)
