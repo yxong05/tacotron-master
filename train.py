@@ -144,7 +144,7 @@ def main():
   log_dir = os.path.join(args.base_dir, 'logs-%s' % run_name)
   os.makedirs(log_dir, exist_ok=True)
   infolog.init(os.path.join(log_dir, 'train.log'), run_name, args.slack_url)
-  hparams.parse(args.hparams)
+  #hparams.parse(args.hparams)
   train(log_dir, args)
 
 
