@@ -8,7 +8,7 @@ import tensorflow as tf
 import traceback
 
 from datasets.datafeeder import DataFeeder
-from hparams import hparams, hparams_debug_string
+from hparams import hparams_debug_string
 from models import create_model
 from text import sequence_to_text
 from util import audio, infolog, plot, ValueWindow
@@ -54,12 +54,12 @@ def train(log_dir, args):
   # Set up DataFeeder:
   coord = tf.train.Coordinator()
   with tf.variable_scope('datafeeder') as scope:
-    feeder = DataFeeder(coord, input_path, hparams)
+    feeder = DataFeeder(coord, input_path)
 
   # Set up model:
   global_step = tf.Variable(0, name='global_step', trainable=False)
   with tf.variable_scope('model') as scope:
-    model = create_model(args.model, hparams)
+    model = create_model(args.model)
     model.initialize(feeder.inputs, feeder.input_lengths, feeder.mel_targets, feeder.linear_targets)
     model.add_loss()
     model.add_optimizer(global_step)
