@@ -20,14 +20,14 @@ class DataFeeder(threading.Thread):
   def __init__(self, coordinator, metadata_filename):
     super(DataFeeder, self).__init__()
     self._coord = coordinator
-    self._cleaner_names = [x.strip() for x in hparams.cleaners.split(',')]
+    self._cleaner_names = [x.strip() for x in 'english_cleaners'.split(',')]
     self._offset = 0
 
     # Load metadata:
     self._datadir = os.path.dirname(metadata_filename)
     with open(metadata_filename, encoding='utf-8') as f:
       self._metadata = [line.strip().split('|') for line in f]
-      hours = sum((int(x[2]) for x in self._metadata)) * hparams.frame_shift_ms / (3600 * 1000)
+      hours = sum((int(x[2]) for x in self._metadata)) * 12.5 / (3600 * 1000)
       log('Loaded metadata for %d examples (%.2f hours)' % (len(self._metadata), hours))
 
     # Create placeholders for inputs and targets. Don't specify batch size because we want to
@@ -35,8 +35,8 @@ class DataFeeder(threading.Thread):
     self._placeholders = [
       tf.placeholder(tf.int32, [None, None], 'inputs'),
       tf.placeholder(tf.int32, [None], 'input_lengths'),
-      tf.placeholder(tf.float32, [None, None, hparams.num_mels], 'mel_targets'),
-      tf.placeholder(tf.float32, [None, None, hparams.num_freq], 'linear_targets')
+      tf.placeholder(tf.float32, [None, None, 80], 'mel_targets'),
+      tf.placeholder(tf.float32, [None, None, 1025], 'linear_targets')
     ]
 
     # Create queue for buffering data:
@@ -51,7 +51,7 @@ class DataFeeder(threading.Thread):
     # Load CMUDict: If enabled, this will randomly substitute some words in the training data with
     # their ARPABet equivalents, which will allow you to also pass ARPABet to the model for
     # synthesis (useful for proper nouns, etc.)
-    if hparams.use_cmudict:
+    if False:
       cmudict_path = os.path.join(self._datadir, 'cmudict-0.7b')
       if not os.path.isfile(cmudict_path):
         raise Exception('If use_cmudict=True, you must download ' +
@@ -80,8 +80,8 @@ class DataFeeder(threading.Thread):
     start = time.time()
 
     # Read a group of examples:
-    n = self._hparams.batch_size
-    r = self._hparams.outputs_per_step
+    n = 32
+    r = 5
     examples = [self._get_next_example() for i in range(n * _batches_per_group)]
 
     # Bucket examples based on similar output sequence length for efficiency:
