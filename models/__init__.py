@@ -1,8 +1,8 @@
 from .tacotron import Tacotron
 
 
-def create_model(name, hparams):
+def create_model(name):
   if name == 'tacotron':
-    return Tacotron(hparams)
+    return Tacotron()
   else:
     raise Exception('Unknown model: ' + name)
