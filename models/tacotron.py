@@ -41,7 +41,7 @@ class Tacotron():
       decoder_cell = MultiRNNCell([
           OutputProjectionWrapper(concat_cell, 256),
           ResidualWrapper(GRUCell(256)),
-          ResidualWrapper(GRUCell256))
+          ResidualWrapper(GRUCell256)
         ], state_is_tuple=True)                                                  # [N, T_in, decoder_depth=256]
       # Project onto r mel spectrograms (predict r outputs at each RNN step):
       output_cell = OutputProjectionWrapper(decoder_cell,80 *5)
