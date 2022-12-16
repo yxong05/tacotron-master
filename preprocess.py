@@ -17,7 +17,7 @@ def preprocess_ljspeech(args):
   in_dir = os.path.join('/content/tacotron-master', 'LJSpeech-1.1')
   out_dir = os.path.join('/content/tacotron-master', args.output)
   os.makedirs(out_dir, exist_ok=True)
-  metadata = ljspeech.build_from_path('/content/tacotron-master', out_dir, args.num_workers, tqdm=tqdm)
+  metadata = ljspeech.build_from_path('/content/tacotron-master/LJSpeech-1.1', out_dir, args.num_workers, tqdm=tqdm)
   write_metadata(metadata, out_dir)
 
 
