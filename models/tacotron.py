@@ -11,7 +11,7 @@ from .rnn_wrappers import DecoderPrenetWrapper, ConcatOutputAndAttentionWrapper
 
 class Tacotron():
   def __init__(self):
-
+    self.None = None
 
   def initialize(self, inputs, input_lengths, mel_targets=None, linear_targets=None):
     with tf.variable_scope('inference') as scope:
