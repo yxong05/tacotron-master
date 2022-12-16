@@ -1,6 +1,6 @@
 import argparse
 import falcon
-from hparams import hparams, hparams_debug_string
+from hparams import hparams_debug_string
 import os
 from synthesizer import Synthesizer
 
@@ -86,7 +86,7 @@ if __name__ == '__main__':
     help='Hyperparameter overrides as a comma-separated list of name=value pairs')
   args = parser.parse_args()
   os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
-  hparams.parse(args.hparams)
+  #hparams.parse(args.hparams)
   print(hparams_debug_string())
   synthesizer.load(args.checkpoint)
   print('Serving on port %d' % args.port)
