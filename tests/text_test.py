@@ -31,11 +31,11 @@ def test_collapse_whitespace():
   assert cleaners.collapse_whitespace(' x.  y,  \tz') == ' x. y, z'
 
 
-def test_convert_to_ascii():
-  assert cleaners.convert_to_ascii("raison d'être") == "raison d'etre"
-  assert cleaners.convert_to_ascii('grüß gott') == 'gruss gott'
-  assert cleaners.convert_to_ascii('안녕') == 'annyeong'
-  assert cleaners.convert_to_ascii('Здравствуйте') == 'Zdravstvuite'
+# def test_convert_to_ascii():
+#   assert cleaners.convert_to_ascii("raison d'être") == "raison d'etre"
+#   assert cleaners.convert_to_ascii('grüß gott') == 'gruss gott'
+#   assert cleaners.convert_to_ascii('안녕') == 'annyeong'
+#   assert cleaners.convert_to_ascii('Здравствуйте') == 'Zdravstvuite'
 
 
 def test_lowercase():
