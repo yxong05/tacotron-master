@@ -11,7 +11,6 @@ hyperparameter. Some cleaners are English-specific. You'll typically want to use
 '''
 
 import re
-from unidecode import unidecode
 from .numbers import normalize_numbers
 
 
@@ -58,9 +57,6 @@ def lowercase(text):
 def collapse_whitespace(text):
   return re.sub(_whitespace_re, ' ', text)
 
-
-def convert_to_ascii(text):
-  return unidecode(text)
 
 
 def basic_cleaners(text):
