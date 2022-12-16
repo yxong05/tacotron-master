@@ -141,7 +141,7 @@ def _db_to_amp_tensorflow(x):
   return tf.pow(tf.ones(tf.shape(x)) * 10.0, x * 0.05)
 
 def _normalize(S):
-  return np.clip((S - (-100)) / 100), 0, 1)))
+  return np.clip(((S - (-100)) / 100), 0, 1)
 
 def _denormalize(S):
   return (np.clip(S, 0, 1) * 100)) + (-100)
