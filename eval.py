@@ -1,7 +1,7 @@
 import argparse
 import os
 import re
-from hparams import hparams, hparams_debug_string
+from hparams import hparams_debug_string
 from synthesizer import Synthesizer
 
 
@@ -45,7 +45,7 @@ def main():
     help='Hyperparameter overrides as a comma-separated list of name=value pairs')
   args = parser.parse_args()
   os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
-  hparams.parse(args.hparams)
+  #hparams.parse(args.hparams)
   run_eval(args)
 
 
