@@ -144,7 +144,7 @@ def _normalize(S):
   return np.clip(((S - (-100)) / 100), 0, 1)
 
 def _denormalize(S):
-  return (np.clip(S, 0, 1) * 100)) + (-100)
+  return (np.clip(S, 0, 1) * 100) + (-100)
 
 def _denormalize_tensorflow(S):
   return (tf.clip_by_value(S, 0, 1) * 100) + (-100)
