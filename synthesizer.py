@@ -1,7 +1,6 @@
 import io
 import numpy as np
 import tensorflow as tf
-from hparams import hparams
 from librosa import effects
 from models import create_model
 from text import text_to_sequence
@@ -14,7 +13,7 @@ class Synthesizer:
     inputs = tf.placeholder(tf.int32, [1, None], 'inputs')
     input_lengths = tf.placeholder(tf.int32, [1], 'input_lengths')
     with tf.variable_scope('model') as scope:
-      self.model = create_model(model_name, hparams)
+      self.model = create_model(model_name)
       self.model.initialize(inputs, input_lengths)
       self.wav_output = audio.inv_spectrogram_tensorflow(self.model.linear_outputs[0])
 
@@ -26,7 +25,7 @@ class Synthesizer:
 
 
   def synthesize(self, text):
-    cleaner_names = [x.strip() for x in hparams.cleaners.split(',')]
+    cleaner_names = [x.strip() for x in 'english_cleaners'.split(',')]
     seq = text_to_sequence(text, cleaner_names)
     feed_dict = {
       self.model.inputs: [np.asarray(seq, dtype=np.int32)],
